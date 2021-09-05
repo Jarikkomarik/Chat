@@ -17,6 +17,7 @@ public class client{
     BufferedReader reader;
     BufferedWriter writer;
     JTextArea chat;
+    JScrollBar vertical;
     public static void main(String []args){
         new client().go();
     }
@@ -43,6 +44,8 @@ public class client{
         JScrollPane ChatPane=new JScrollPane(chat);
         ChatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         ChatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        vertical = ChatPane.getVerticalScrollBar();
+        //ChatPane.getVerticalScrollBar().setAutoscrolls(true);
 
         JButton send=new JButton("send");
         send.setFocusable(false);
@@ -62,7 +65,6 @@ public class client{
 
         Thread chatThread=new Thread(new ChatReader());                                                                  //running new Thread to read chat messages
         chatThread.start();
-
     }
 
 
@@ -87,6 +89,7 @@ public class client{
 
                    while (((chatText=reader.readLine())!=null)){
                         chat.append(chatText+"\n");
+                       vertical.setValue( vertical.getMaximum() );
                     }
 
                 } catch (IOException e) {

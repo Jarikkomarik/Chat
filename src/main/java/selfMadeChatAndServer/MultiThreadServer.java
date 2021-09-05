@@ -48,7 +48,7 @@ public class MultiThreadServer {
                     while ((s = reader.readLine()) != null) {                                                            //sending back message from client
                         //MessageDatabase.add(s);
                         listOfMessages.add("Client id: "+id+".\nMessage: "+s);                                           //adding message to list of messages
-                        SendMessageDatabase("Client id: "+id+".\nMessage: "+s);
+                        SendMessageDatabase("id"+id+": "+s);
                     }
 
 
