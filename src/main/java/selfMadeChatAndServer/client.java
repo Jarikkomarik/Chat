@@ -8,11 +8,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
+
 
 public class client{
-    //ArrayList<String> MessageDatabese = new ArrayList<String>();
-    File filename;
+
+
     JTextArea message;
     BufferedReader reader;
     BufferedWriter writer;
@@ -21,13 +21,12 @@ public class client{
         new client().go();
     }
     void go(){
-        JFrame frame=new JFrame("JoelChat");
+        JFrame frame=new JFrame("JoelChat");                                                                        //creating GUI
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setBackground(Color.BLACK);
         JPanel panel=new JPanel();
         panel.setBackground(Color.BLACK);
 
-        message=new JTextArea(3,20);
+        message=new JTextArea(3,20);                                                                       //message TextArea
         message.setLineWrap(true);
         message.setWrapStyleWord(true);
         message.addKeyListener(new EnterPressed());
@@ -36,7 +35,7 @@ public class client{
         MessagePane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         MessagePane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        chat=new JTextArea(10,20);
+        chat=new JTextArea(10,20);                                                                         //chat TextArea
         chat.setLineWrap(true);
         chat.setWrapStyleWord(true);
         chat.setEditable(false);
@@ -53,15 +52,15 @@ public class client{
         panel.add(ChatPane);
         panel.add(MessagePane);
         panel.add(send);
-        frame.add(panel);
+        frame.add(panel);                                                                                                //adding elements to panel
 
 
-        SetUpConnection();
+        SetUpConnection();                                                                                               //connecting to server socket
 
         frame.setSize(300,300);
         frame.setVisible(true);
 
-        Thread chatThread=new Thread(new ChatReader());
+        Thread chatThread=new Thread(new ChatReader());                                                                  //running new Thread to read chat messages
         chatThread.start();
 
     }
@@ -69,7 +68,7 @@ public class client{
 
     void SetUpConnection(){
         try {
-            Socket socket=new Socket("localhost",5000);
+            Socket socket=new Socket("localhost",5000);                                                        //connecting to server socket
             reader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             System.out.println("connected to server!");
@@ -101,11 +100,11 @@ public class client{
 
 
 
-    class SendListener implements ActionListener {
+    class SendListener implements ActionListener {                                                                       //sending message by pressing send button
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Send is Pressed!");
+            //System.out.println("Send is Pressed!");
             sendMessage(true);
 
         }
@@ -132,7 +131,7 @@ public class client{
 
         }
     }
-    void sendMessage(boolean b){
+    void sendMessage(boolean b){                                                                                         //sending message by pressing enter key
         if(b==true){
             try {
                 writer.write(message.getText()+"\n");
